@@ -1,0 +1,376 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_application_gateway.appgw will be created
+  + resource "azurerm_application_gateway" "appgw" {
+      + id                          = (known after apply)
+      + location                    = "eastus"
+      + name                        = "cool-appgateway"
+      + private_endpoint_connection = (known after apply)
+      + resource_group_name         = "cool-wordpress-rg"
+
+      + backend_address_pool {
+          + fqdns        = (known after apply)
+          + id           = (known after apply)
+          + ip_addresses = []
+          + name         = "cool-be-address-pool"
+        }
+
+      + backend_http_settings {
+          + cookie_based_affinity               = "Disabled"
+          + id                                  = (known after apply)
+          + name                                = "cool-http-setting"
+          + pick_host_name_from_backend_address = true
+          + port                                = 443
+          + probe_id                            = (known after apply)
+          + probe_name                          = "cool-app-probe"
+          + protocol                            = "Https"
+          + request_timeout                     = 60
+          + trusted_root_certificate_names      = []
+        }
+
+      + frontend_ip_configuration {
+          + id                            = (known after apply)
+          + name                          = "cool-fe-ip-config-name"
+          + private_ip_address            = (known after apply)
+          + private_ip_address_allocation = "Dynamic"
+          + private_link_configuration_id = (known after apply)
+          + public_ip_address_id          = (known after apply)
+        }
+
+      + frontend_port {
+          + id   = (known after apply)
+          + name = "cool-fe-port-name"
+          + port = 80
+        }
+
+      + gateway_ip_configuration {
+          + id        = (known after apply)
+          + name      = "gateway-ip-configuration"
+          + subnet_id = (known after apply)
+        }
+
+      + http_listener {
+          + frontend_ip_configuration_id   = (known after apply)
+          + frontend_ip_configuration_name = "cool-fe-ip-config-name"
+          + frontend_port_id               = (known after apply)
+          + frontend_port_name             = "cool-fe-port-name"
+          + host_names                     = []
+          + id                             = (known after apply)
+          + name                           = "cool-listener"
+          + protocol                       = "Http"
+          + ssl_certificate_id             = (known after apply)
+          + ssl_profile_id                 = (known after apply)
+        }
+
+      + probe {
+          + host                                      = (known after apply)
+          + id                                        = (known after apply)
+          + interval                                  = 60
+          + minimum_servers                           = 0
+          + name                                      = "cool-app-probe"
+          + path                                      = "/"
+          + pick_host_name_from_backend_http_settings = false
+          + port                                      = 80
+          + protocol                                  = "Http"
+          + timeout                                   = 60
+          + unhealthy_threshold                       = 3
+
+          + match {
+              + status_code = []
+            }
+        }
+
+      + request_routing_rule {
+          + backend_address_pool_id    = (known after apply)
+          + backend_address_pool_name  = "cool-be-address-pool"
+          + backend_http_settings_id   = (known after apply)
+          + backend_http_settings_name = "cool-http-setting"
+          + http_listener_id           = (known after apply)
+          + http_listener_name         = "cool-listener"
+          + id                         = (known after apply)
+          + name                       = "cool-request-routing-rule"
+          + priority                   = 1
+          + redirect_configuration_id  = (known after apply)
+          + rewrite_rule_set_id        = (known after apply)
+          + rule_type                  = "Basic"
+          + url_path_map_id            = (known after apply)
+        }
+
+      + sku {
+          + capacity = 2
+          + name     = "Standard_v2"
+          + tier     = "Standard_v2"
+        }
+    }
+
+  # azurerm_linux_web_app.webapp will be created
+  + resource "azurerm_linux_web_app" "webapp" {
+      + app_settings                      = (known after apply)
+      + client_affinity_enabled           = false
+      + client_certificate_enabled        = false
+      + client_certificate_mode           = "Required"
+      + custom_domain_verification_id     = (sensitive value)
+      + default_hostname                  = (known after apply)
+      + enabled                           = true
+      + hosting_environment_id            = (known after apply)
+      + https_only                        = false
+      + id                                = (known after apply)
+      + key_vault_reference_identity_id   = (known after apply)
+      + kind                              = (known after apply)
+      + location                          = "eastus"
+      + name                              = "cool-wordpress-app"
+      + outbound_ip_address_list          = (known after apply)
+      + outbound_ip_addresses             = (known after apply)
+      + possible_outbound_ip_address_list = (known after apply)
+      + possible_outbound_ip_addresses    = (known after apply)
+      + public_network_access_enabled     = true
+      + resource_group_name               = "cool-wordpress-rg"
+      + service_plan_id                   = (known after apply)
+      + site_credential                   = (sensitive value)
+      + virtual_network_subnet_id         = (known after apply)
+      + zip_deploy_file                   = (known after apply)
+
+      + site_config {
+          + always_on                               = true
+          + container_registry_use_managed_identity = false
+          + default_documents                       = (known after apply)
+          + detailed_error_logging_enabled          = (known after apply)
+          + ftps_state                              = "Disabled"
+          + health_check_eviction_time_in_min       = (known after apply)
+          + http2_enabled                           = false
+          + linux_fx_version                        = (known after apply)
+          + load_balancing_mode                     = "LeastRequests"
+          + local_mysql_enabled                     = false
+          + managed_pipeline_mode                   = "Integrated"
+          + minimum_tls_version                     = "1.2"
+          + remote_debugging_enabled                = false
+          + remote_debugging_version                = (known after apply)
+          + scm_minimum_tls_version                 = "1.2"
+          + scm_type                                = (known after apply)
+          + scm_use_main_ip_restriction             = false
+          + use_32_bit_worker                       = true
+          + vnet_route_all_enabled                  = false
+          + websockets_enabled                      = false
+          + worker_count                            = (known after apply)
+
+          + application_stack {
+              + docker_image_name        = "wordpress:latest"
+              + docker_registry_password = (sensitive value)
+              + docker_registry_url      = "https://index.docker.io"
+              + docker_registry_username = (known after apply)
+            }
+
+          + ip_restriction {
+              + action                    = "Allow"
+              + headers                   = []
+              + name                      = "GW"
+              + priority                  = 100
+              + virtual_network_subnet_id = (known after apply)
+            }
+        }
+    }
+
+  # azurerm_mysql_flexible_database.mysql_db will be created
+  + resource "azurerm_mysql_flexible_database" "mysql_db" {
+      + charset             = "utf8"
+      + collation           = "utf8_unicode_ci"
+      + id                  = (known after apply)
+      + name                = "cool-wordpress-db"
+      + resource_group_name = "cool-wordpress-rg"
+      + server_name         = "cool-mysqlserver"
+    }
+
+  # azurerm_mysql_flexible_server.mysql_server will be created
+  + resource "azurerm_mysql_flexible_server" "mysql_server" {
+      + administrator_login           = "CoolAdminUser"
+      + administrator_password        = (sensitive value)
+      + backup_retention_days         = 7
+      + delegated_subnet_id           = (known after apply)
+      + fqdn                          = (known after apply)
+      + geo_redundant_backup_enabled  = false
+      + id                            = (known after apply)
+      + location                      = "eastus"
+      + name                          = "cool-mysqlserver"
+      + private_dns_zone_id           = (known after apply)
+      + public_network_access_enabled = (known after apply)
+      + replica_capacity              = (known after apply)
+      + replication_role              = (known after apply)
+      + resource_group_name           = "cool-wordpress-rg"
+      + sku_name                      = "GP_Standard_D2ds_v4"
+      + version                       = (known after apply)
+    }
+
+  # azurerm_private_dns_zone.pvt_dns_zone will be created
+  + resource "azurerm_private_dns_zone" "pvt_dns_zone" {
+      + id                                                    = (known after apply)
+      + max_number_of_record_sets                             = (known after apply)
+      + max_number_of_virtual_network_links                   = (known after apply)
+      + max_number_of_virtual_network_links_with_registration = (known after apply)
+      + name                                                  = "cool.mysql.database.azure.com"
+      + number_of_record_sets                                 = (known after apply)
+      + resource_group_name                                   = "cool-wordpress-rg"
+    }
+
+  # azurerm_private_dns_zone_virtual_network_link.vnet_link will be created
+  + resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link" {
+      + id                    = (known after apply)
+      + name                  = "cool-vnet-link"
+      + private_dns_zone_name = "cool.mysql.database.azure.com"
+      + registration_enabled  = false
+      + resource_group_name   = "cool-wordpress-rg"
+      + virtual_network_id    = (known after apply)
+    }
+
+  # azurerm_public_ip.pip will be created
+  + resource "azurerm_public_ip" "pip" {
+      + allocation_method       = "Static"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "eastus"
+      + name                    = "gateway-pip"
+      + resource_group_name     = "cool-wordpress-rg"
+      + sku                     = "Standard"
+      + sku_tier                = "Regional"
+    }
+
+  # azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = "cool-wordpress-rg"
+    }
+
+  # azurerm_service_plan.asp will be created
+  + resource "azurerm_service_plan" "asp" {
+      + id                           = (known after apply)
+      + kind                         = (known after apply)
+      + location                     = "eastus"
+      + maximum_elastic_worker_count = (known after apply)
+      + name                         = "cool-wordpress-asp"
+      + os_type                      = "Linux"
+      + per_site_scaling_enabled     = false
+      + reserved                     = (known after apply)
+      + resource_group_name          = "cool-wordpress-rg"
+      + sku_name                     = "B1"
+      + worker_count                 = (known after apply)
+    }
+
+  # azurerm_subnet.app will be created
+  + resource "azurerm_subnet" "app" {
+      + address_prefixes                               = [
+          + "192.168.2.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "app-subnet"
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "cool-wordpress-rg"
+      + virtual_network_name                           = "wordpress-vnet"
+
+      + delegation {
+          + name = "cool-app-delegation"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/action",
+                ]
+              + name    = "Microsoft.Web/serverFarms"
+            }
+        }
+    }
+
+  # azurerm_subnet.gateway will be created
+  + resource "azurerm_subnet" "gateway" {
+      + address_prefixes                               = [
+          + "192.168.0.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "gateway-subnet"
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "cool-wordpress-rg"
+      + service_endpoints                              = [
+          + "Microsoft.Web",
+        ]
+      + virtual_network_name                           = "wordpress-vnet"
+    }
+
+  # azurerm_subnet.mysql will be created
+  + resource "azurerm_subnet" "mysql" {
+      + address_prefixes                               = [
+          + "192.168.3.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "mysql-subnet"
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "cool-wordpress-rg"
+      + service_endpoints                              = [
+          + "Microsoft.Storage",
+        ]
+      + virtual_network_name                           = "wordpress-vnet"
+
+      + delegation {
+          + name = "fs"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/join/action",
+                ]
+              + name    = "Microsoft.DBforMySQL/flexibleServers"
+            }
+        }
+    }
+
+  # azurerm_virtual_network.vnet will be created
+  + resource "azurerm_virtual_network" "vnet" {
+      + address_space       = [
+          + "192.168.0.0/16",
+        ]
+      + dns_servers         = (known after apply)
+      + guid                = (known after apply)
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "wordpress-vnet"
+      + resource_group_name = "cool-wordpress-rg"
+      + subnet              = (known after apply)
+    }
+
+  # random_password.mysql will be created
+  + resource "random_password" "mysql" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 64
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = false
+      + upper       = true
+    }
+
+Plan: 14 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
